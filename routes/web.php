@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -52,11 +53,42 @@ Route::get('/cursos/{id}' , function($curso){
     return $curso;
 });
 */
+/*
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+Route::get('/posts/create', [PostController::class , 'create'])->name('posts.create');
+Route::post('/posts' , [PostController::class , 'store'])->name('posts.store');
+Route::get('/posts/{post}', [PostController::class , 'show'])->name('posts.show');
+Route::post('/posts/{post}/edit' , [PostController::class , 'edit'])->name('posts.edit');
+Route::patch('/post/{post}' , [PostController::class , 'update'])->name('posts.update');
+Route::delete('/posts/{post}' , [PostController::class , 'destroy'])->name('posts.destroy');
+*/
 
-Route::get('/posts', [PostController::class, 'index']);
-Route::get('/posts/create', [PostController::class , 'create']);
-Route::post('/posts' , [PostController::class , 'store']);
-Route::get('/posts/{post}', [PostController::class , 'show']);
-Route::post('/posts/{post}/edit' , [PostController::class , 'edit']);
-Route::patch('/post/{post}' , [PostController::class , 'update']);
-Route::delete('/posts/{post}' , [PostController::class , 'destroy']);
+//METODO RESOURCE
+route::resource('posts', PostController::class);
+
+//PARA DECIRLE CUAL DEBE SER EL NOMBRE DE MI RUTA ES DECIR LO QUE VA route('nombreruta.index') lo que cambiare es el nombreruta
+/*route::resource('articulos', PostController::class)->names('posts');*/
+
+//PARA CAMBIAR EL PARAMETRO DE LA RUTA Y PONERLA COMO DESEO ES DECIR  articulos/{parametro} seteare el parametro es decir le dire como quiero que se llame
+/*
+route::resource('articulos', PostController::class)
+    ->parameters([
+        'articulos' =>'post'
+    ])
+    ->names('posts');
+
+*/
+//EN CASO QUE QUIERA USAR EL RESOURCE Y SOLO SE USE CIERTOS METODOS
+/*
+route::resource('posts', PostController::class)->only([
+        'index','show'
+]);
+*/
+//METODO EN CASO QUIERA EXCLUIR UNA RUTA
+/*route::resource('posts', PostController::class)->except([
+    'destroy'
+]);
+*/
+
+//PARA EL ABOUTCONTROLLER (aqui solo uso un controlador de tipo INVOKE que solo hara caso a una funcion nada mas)
+//route::get('/about', AboutController::class);

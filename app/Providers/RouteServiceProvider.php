@@ -27,9 +27,14 @@ class RouteServiceProvider extends ServiceProvider
         //AGREGO ESTA VALIDACION PARA MIS RUTAS AQUI LE DIGO QUE TODO PARAMETRO QUE SEA id SOLO TENGA VALORES NUMEROS
         Route::pattern('id','[0-9]+');
 
+        //AQUI LE DIGO A MI RUTA QUE ME MUESTRE LOS VERBOS DE LA RUTA EN ESPAÑOL ES DECIR CREAR EDITAR
+       /*
+        Route::resourceVerbs([
+            'create' => 'crear',
+            'edit' => 'editar'
+        ]);
 
-
-
+        */
         $this->configureRateLimiting();
 
         $this->routes(function () {

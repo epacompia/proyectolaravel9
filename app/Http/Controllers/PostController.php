@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     public function index(){
-        return "aqui se mostrara el index";
+        return view('posts.index', ['prueba' => 'este es un mensaje de prueba']);
     }
 
     public function create(){
-        return "aqui se mostrara formulario para crear";
+        return view('posts.create');
     }
 
     public function store(){
@@ -19,11 +19,13 @@ class PostController extends Controller
     }
 
     public function show($post){
-        return "aqui se mostrara el post $post";
+        //return view('posts.show', ['post' => $post]); //primera forma de pasar parametros
+        //return view('posts.show', compact('post'));  //segunda forma
+        return view('posts.show')->with('post', $post); //tercera forma de pasarle un parametro
     }
 
     public function edit($post){
-        return "aqui se mostrara el formlario para editar el post";
+        return view('posts.edit');
     }
 
     public function update($post){
