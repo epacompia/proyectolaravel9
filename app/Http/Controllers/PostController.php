@@ -7,7 +7,25 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     public function index(){
-        return view('posts.index', ['prueba' => 'este es un mensaje de prueba']);
+
+        $posts=[
+            [
+                'title' => 'Post 1',
+                'content' => 'Content 1'
+            ],
+            [
+                'title' => 'Post 2',
+                'content' => 'Content 2'
+            ],
+            [
+                'title' => 'Post 3',
+                'content' => 'Content 3'
+            ],
+        ];
+
+
+
+        return view('posts.index', compact('posts'));
     }
 
     public function create(){
