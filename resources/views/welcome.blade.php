@@ -26,9 +26,22 @@
         {{-- CREANDO UN COMPONENTE  (Primer paso: ejecuto php artisan make:component nombrecomponente en mi caso se llamara Alert y luego presiono enter) --}}
         {{-- LLAMANDO A MI COMPONENTE --}}
         <div class="container mx-auto py-12">
-            <x-alert>
+
+            @php
+                $type='danger';
+            @endphp
+
+            <x-alert  :type="$type" class="mb-6">
+                
+                <x-slot:title> 
+                    titutlo de prueba agora
+                </x-slot>
+
+
                 esto es un texto de prueba
             </x-alert>
+
+
         </div>
 
 
