@@ -21,6 +21,7 @@ return new class extends Migration
             // para las llaves foraneas son tratadas asi
             //PRIMERA FORMA
             //Para la llave foranea de user_id
+            /*
             $table->foreignId('user_id')
                     //->nullable()  //aqui le pongo nullable para poder usar el "set null"
                     ->constrained()  //este es como si agregara en reference y el on
@@ -31,7 +32,7 @@ return new class extends Migration
             $table->foreignId('category_id')
                     ->constrained()
                     ->onDelete('cascade');
-
+            */
 
             //SEGUNDA FORMA
             /*

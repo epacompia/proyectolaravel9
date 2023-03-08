@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -32,11 +34,31 @@ class PostController extends Controller
     }
 
     public function create(){
-        return view('posts.create');
+
+        $categories=Category::all();
+        $users=User::all();
+
+        return view('posts.create',compact('categories','users'));
     }
 
-    public function store(){
-        return "aqui se procesara el post";
+    public function store(Request $request){
+        //return $request->ip(); //retorna la ip del usuario que hizo la peticion
+        //return $request->host(); //me retorna el host
+        //return $request->input('title');
+        //return $request->path();
+        //return $request->all(); este me imprime todos los campos que estoy enviando
+        //return "aqui se procesara el post";
+        /*colecciones, se puede devolver como si fuera una coleccion
+        $data= $request->collect();
+        return $data->first();
+        */
+        //$data= $request->only('title', 'slug', 'body'); //en caso solo deseo que me traiga unos datos en especifico
+        //$data= $request->except('title'); //metodo que me permite que no me retorne algunos campos en especifico
+        //return $data;
+
+        $data=$request->all();
+        return $data;
+
     }
 
     public function show($post){
