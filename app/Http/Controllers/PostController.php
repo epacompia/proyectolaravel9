@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -56,8 +57,26 @@ class PostController extends Controller
         //$data= $request->except('title'); //metodo que me permite que no me retorne algunos campos en especifico
         //return $data;
 
-        $data=$request->all();
-        return $data;
+        //$data=$request->all();
+        //return $data;
+
+        //Interactuando con el modelo Post
+        //1° FORMA  DE GUARDARADO
+        /*
+        $post=new Post();
+        $post->title = $request->input('title');
+        $post->slug = $request->slug;
+        $post->body = $request->body;
+        $post->category_id = $request->category_id;
+        $post->user_id = $request->user_id;
+
+        $post->save();
+        return "el post se creo con exito";
+        */
+
+        //2° FORMA DE GUARDADO (ASIGNACION MASIVA SI EN CASO SON MUCHOS CAMPOS A GUARDAR) obs: e esta forma debemos colcor en el MOdelo Post los campos a enviar dentro de $fillable
+        Post::create($request->all());
+
 
     }
 
