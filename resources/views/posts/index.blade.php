@@ -2,7 +2,8 @@
 {{-- PARA EL CUERPO DEL DOCUMENTO --}}
 <x-layout>
 
-    {{-- PARA EL TITULO DE LA PAGINA USO EL SLOT --}}
+<div class="container mx-auto py-12">
+{{-- PARA EL TITULO DE LA PAGINA USO EL SLOT --}}
     <x-slot name="title">
         Post Inicio
     </x-slot>
@@ -18,12 +19,14 @@
     <ul>
         @forelse ($posts as $post)
             <li>
-                <a href="{{route('posts.show',$post['id'])}}">{{$post['title']}}</a>
+                <a href="{{route('posts.show',$post->id)}}">{{$post->title}}</a>
             </li>
         @empty
             <li>No hay post</li>
         @endforelse
     </ul>
+    {{$posts->links()}}
+</div>
 
 </x-layout>
 

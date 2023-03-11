@@ -35,22 +35,24 @@ return new class extends Migration
             */
 
             //SEGUNDA FORMA
-            /*
+            
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                     ->references('id')
                     ->on('users')
+                    ->after('image_url')
                     ->onDelete('cascade');  //EN CASO YO ELIMINE UN USUARIO PUES QUE ELIMINE TODO SU POST EN CASCADA YA QUE NO EXISTE
-            */
+            
 
             // para las llaves foraneas son tratadas asi
-            /*
+            
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')
                     ->references('id')
                     ->on('categories')
+                    ->after('image_url')
                     ->onDelete('cascade');  //EN CASO YO ELIMINE UN USUARIO PUES QUE ELIMINE TODO SU POST EN CASCADA YA QUE NO EXISTE
-            */
+            
 
 
             $table->timestamps();

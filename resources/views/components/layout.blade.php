@@ -11,10 +11,11 @@
 
 
     <title>{{$title ?? 'RunaSystem'}}</title>  <!--En caso de que le coloque ?? significa que es para que me tome por valor de defecto RunaSystem-->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
 
-    <nav>
+    <nav class="container mx-auto">
         <ul>
             <li>
                 <a href="{{route('welcome')}}">Home</a>

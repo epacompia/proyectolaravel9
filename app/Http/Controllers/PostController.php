@@ -11,23 +11,7 @@ class PostController extends Controller
 {
     public function index(){
 
-        $posts=[
-            [
-                'id' => 1,
-                'title' => 'Post 1',
-                'content' => 'Content 1'
-            ],
-            [
-                'id' => 2,
-                'title' => 'Post 2',
-                'content' => 'Content 2'
-            ],
-            [
-                'id' => 3,
-                'title' => 'Post 3',
-                'content' => 'Content 3'
-            ],
-        ];
+        $posts=Post::paginate(7);  //LLAMO A PAGINACION PARA VER LOS RESULTADOS POR PAGINAS, RECUERDEN QUE EN LA VISTA DEL INDEX DONDE ESTA TODO ESTOS REGISTROS DEBO LLAMAR A {{$posts->links()}}
 
 
 
