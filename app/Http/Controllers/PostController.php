@@ -81,11 +81,33 @@ class PostController extends Controller
     }
 
     public function edit($post){
-        return view('posts.edit');
+
+        $post= Post::findOrFail($post);
+
+        $categories=Category::all();
+        $users=User::all();
+        return view('posts.edit', compact('post','categories','users'));
     }
 
-    public function update($post){
-        return "aqui se acutlizara el $post";
+    public function update(Request $request, $post){
+        
+        /*
+        //1° busco el post que recibo, tener en cuenta que como parametro le agrego el Request que recibo del formulario
+        $post = Post::findOrFail($post);
+        //llamo a todos los campos y al final los guardo con save()
+        $post->title=$request->title;
+        $post->slug=$request->slug;
+        $post->body=$request->body;
+        $post->category_id=$request->category_id;
+        $post->user_id=$request->user_id;
+        $post->save();
+        return "el post se actualizo";
+        */
+
+        // 2° Forma (en caso tengo muchos campos que actualizar)
+        $post = Post::findOrFail($post); 
+        $post->update($request->all());
+
     }
 
     public function destroy($post){
