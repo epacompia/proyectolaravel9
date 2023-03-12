@@ -1,4 +1,7 @@
 <x-layout>
+    
+
+<div class="container mx-auto py-12">
     <h1>Aqui se mostrara para crear de post</h1>
     <form action="{{ route('posts.store') }}" method="POST">
         @csrf
@@ -49,4 +52,5 @@
             <button type="submit">Enviar</button>
         </div>
     </form>
+</div>
 </x-layout>

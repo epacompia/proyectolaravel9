@@ -67,7 +67,17 @@ class PostController extends Controller
     public function show($post){
         //return view('posts.show', ['post' => $post]); //primera forma de pasar parametros
         //return view('posts.show', compact('post'));  //segunda forma
-        return view('posts.show')->with('post', $post); //tercera forma de pasarle un parametro
+        
+        //1° Forma
+        /*
+        $post=Post::where('id', $post)->first();
+        return $post->title;
+        */
+
+        //2° Forma Podria haber usado Find pero ese metodo si falla o no encuentra el valor , no me devolvera ni un mensaje de pagina no encontrada, en cambio failOrFail si me devuelve un 404
+        $post=Post::findOrFail($post);
+        return view('posts.show', compact('post'));
+        //return view('posts.show')->with('post', $post); //tercera forma de pasarle un parametro
     }
 
     public function edit($post){
