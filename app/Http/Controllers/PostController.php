@@ -59,12 +59,14 @@ class PostController extends Controller
         */
 
         //2° FORMA DE GUARDADO (ASIGNACION MASIVA SI EN CASO SON MUCHOS CAMPOS A GUARDAR) obs: e esta forma debemos colcor en el MOdelo Post los campos a enviar dentro de $fillable
-        Post::create($request->all());
-
+        $post= Post::create($request->all());
+        
+        //Redirecciono al edit
+        return redirect()->route('posts.edit',$post->id);
 
     }
 
-    public function show($post){
+    public function show(Post $post){ //En caso quiera usar model bainding , aqui como parametro coloco la clase Post, y con eso me evito usar el findOrFail()
         //return view('posts.show', ['post' => $post]); //primera forma de pasar parametros
         //return view('posts.show', compact('post'));  //segunda forma
         
@@ -75,22 +77,22 @@ class PostController extends Controller
         */
 
         //2° Forma Podria haber usado Find pero ese metodo si falla o no encuentra el valor , no me devolvera ni un mensaje de pagina no encontrada, en cambio failOrFail si me devuelve un 404
-        $post=Post::findOrFail($post);
+        //$post=Post::findOrFail($post);
         return view('posts.show', compact('post'));
         //return view('posts.show')->with('post', $post); //tercera forma de pasarle un parametro
     }
 
-    public function edit($post){
+    public function edit(Post $post){ //Uso model bainging por eso aqui coloco el modelo y evito usar el FinOrFail
 
-        $post= Post::findOrFail($post);
+        //$post= Post::findOrFail($post);
 
         $categories=Category::all();
         $users=User::all();
         return view('posts.edit', compact('post','categories','users'));
     }
 
-    public function update(Request $request, $post){
-        
+    public function update(Request $request, Post $post){ //Aqui uso el model baingin por eso aqui coloco la clase Post
+         
         /*
         //1° busco el post que recibo, tener en cuenta que como parametro le agrego el Request que recibo del formulario
         $post = Post::findOrFail($post);
@@ -105,12 +107,19 @@ class PostController extends Controller
         */
 
         // 2° Forma (en caso tengo muchos campos que actualizar)
-        $post = Post::findOrFail($post); 
+        //$post = Post::findOrFail($post); 
         $post->update($request->all());
 
+
+        //Redireccion
+        return redirect()->route('posts.edit', $post);
     }
 
-    public function destroy($post){
-        return "aqui se eliminara el $post";
+    public function destroy(Post $post){ //aqui uso el model BAINGIND por eso le pongo el modelo Post
+            //$post=Post::findOrFail($post);
+            $post->delete();
+
+            //Redireccion
+            return redirect()->route('posts.index');
     }
 }
