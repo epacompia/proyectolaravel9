@@ -1,5 +1,5 @@
 <x-layout>
-    
+
 
 <div class="container mx-auto py-12">
     <h1>Aqui se mostrara para crear de post</h1>
@@ -17,7 +17,7 @@
 
     <form action="{{ route('posts.store') }}" method="POST">
         @csrf
-        
+
         <div>
             <label for="title">Titulo</label>
             <br>
@@ -64,6 +64,12 @@
                     <option @selected(old('category_id') == $category->id) value="{{ $category->id }}">{{ $category->name }}</option>
                 @endforeach
             </select>
+            @error('category_id')
+            <div>
+                <small class="text-danger">{{ $message }}</small>
+            </div>
+        @enderror
+
             <br>
         </div>
 
@@ -76,6 +82,12 @@
                     <option @selected(old('user_id')==$user->id) value="{{ $user->id }}">{{ $user->name }}</option>
                 @endforeach
             </select>
+            @error('user_id')
+            <div>
+                <small class="text-danger">{{ $message }}</small>
+            </div>
+             @enderror
+
             <br>
         </div>
 

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
@@ -26,7 +29,7 @@ class PostController extends Controller
         return view('posts.create',compact('categories','users'));
     }
 
-    public function store(Request $request){
+    public function store(PostRequest $request){
         //return $request->ip(); //retorna la ip del usuario que hizo la peticion
         //return $request->host(); //me retorna el host
         //return $request->input('title');
@@ -61,30 +64,31 @@ class PostController extends Controller
 
         //VALIDACIONES
         //1° forma validacion e el controller
-         $request->validate([
+        /*
+        $request->validate([
             'title' => 'required',
-            'slug' => 'required',
+            'slug' => 'required| unique:posts',
             'body' => 'required',
-            'category_id' => 'required',
-            'user_id' => 'required'
+            'category_id' => 'required|exists:categories,id', //esto es para que caundo un usuario quiera agregar otra opcion por el html de forma maliciosa no lo pueda hacer, por eso le digo que tiene qeu existtir en categories con la clausula exist
+            'user_id' => 'required|exists:users,id', //esto es para que cuando se agrege un valor en el html de forma mal intencionada no lo acepte
          ]);
-
+         */
 
 
 
 
         //2° FORMA DE GUARDADO (ASIGNACION MASIVA SI EN CASO SON MUCHOS CAMPOS A GUARDAR) obs: e esta forma debemos colcor en el MOdelo Post los campos a enviar dentro de $fillable
         $post= Post::create($request->all());
-        
+
         //Redirecciono al edit
-        return redirect()->route('posts.edit',$post->id);
+        return redirect()->route('posts.edit',$post);
 
     }
 
     public function show(Post $post){ //En caso quiera usar model bainding , aqui como parametro coloco la clase Post, y con eso me evito usar el findOrFail()
         //return view('posts.show', ['post' => $post]); //primera forma de pasar parametros
         //return view('posts.show', compact('post'));  //segunda forma
-        
+
         //1° Forma
         /*
         $post=Post::where('id', $post)->first();
@@ -99,15 +103,16 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
+        //dd($post);
         //Uso model bainging por eso aqui coloco el modelo y evito usar el FinOrFail
         $categories = Category::all();
         $users = User::all();
-        
+
         return view('posts.edit', compact('post','categories','users'));
     }
 
-    public function update(Request $request, Post $post){ //Aqui uso el model baingin por eso aqui coloco la clase Post
-         
+    public function update(PostRequest $request, Post $post){ //Aqui uso el model baingin por eso aqui coloco la clase Post
+
         /*
         //1° busco el post que recibo, tener en cuenta que como parametro le agrego el Request que recibo del formulario
         $post = Post::findOrFail($post);
@@ -124,18 +129,19 @@ class PostController extends Controller
 
         //VALIDACIONES
         //1° forma validacion e el controller
+        /*
         $request->validate([
             'title' => 'required',
-            'slug' => 'required',
+            'slug' => 'required|unique:posts,slug,' . $post->id, //esto lo coloco porque cuando edito o actualizo este registro y me considere el slug que ya tenia y no me tome como nuevo slug
             'body' => 'required',
-            'category_id' => 'required',
-            'user_id' => 'required'
+            'category_id' => 'required|exists:categories,id', //esto es para que caundo un usuario quiera agregar otra opcion por el html de forma maliciosa no lo pueda hacer, por eso le digo que tiene qeu existtir en categories con la clausula exist
+            'user_id' => 'required|exists:users,id', //esto es para que cuando se agrege un valor en el html de forma mal intencionada no lo acepte
          ]);
-         
+         */
 
 
         // 2° Forma (en caso tengo muchos campos que actualizar)
-        //$post = Post::findOrFail($post); 
+        //$post = Post::findOrFail($post);
         $post->update($request->all());
 
 

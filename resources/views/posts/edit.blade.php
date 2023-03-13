@@ -8,14 +8,14 @@
                 <li>{{ $error }}</li>
             @endforeach
          </ul>
-    @endif 
+    @endif
 
 
 
     <form action="{{ route('posts.update', $post) }}" method="POST">
         @csrf
         @method('PUT')
-        
+
         <div>
             <label for="title">Titulo</label>
             <br>
