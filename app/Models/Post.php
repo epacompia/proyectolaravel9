@@ -28,4 +28,9 @@ class Post extends Model
         'updated_at'
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
 }

@@ -19,7 +19,8 @@
     <ul>
         @forelse ($posts as $post)
             <li>
-                <a href="{{route('posts.show',$post->id)}}">{{$post->title}}</a>
+                {{-- aqui para usar rutas amigables, usare en el modelo Post una fucion llamada getRouteKeyName que recibe como parametro el campo de la tabla posts por el cual quiero que se identifique al registro en el url, esto servira para que los buscadores lo eliminen mas rapido --}}
+                <a href="{{route('posts.show', $post)}}">{{$post->title}}</a>
             </li>
         @empty
             <li>No hay post</li>

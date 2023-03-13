@@ -58,6 +58,21 @@ class PostController extends Controller
         return "el post se creo con exito";
         */
 
+
+        //VALIDACIONES
+        //1° forma validacion e el controller
+         $request->validate([
+            'title' => 'required',
+            'slug' => 'required',
+            'body' => 'required',
+            'category_id' => 'required',
+            'user_id' => 'required'
+         ]);
+
+
+
+
+
         //2° FORMA DE GUARDADO (ASIGNACION MASIVA SI EN CASO SON MUCHOS CAMPOS A GUARDAR) obs: e esta forma debemos colcor en el MOdelo Post los campos a enviar dentro de $fillable
         $post= Post::create($request->all());
         
@@ -82,12 +97,12 @@ class PostController extends Controller
         //return view('posts.show')->with('post', $post); //tercera forma de pasarle un parametro
     }
 
-    public function edit(Post $post){ //Uso model bainging por eso aqui coloco el modelo y evito usar el FinOrFail
-
-        //$post= Post::findOrFail($post);
-
-        $categories=Category::all();
-        $users=User::all();
+    public function edit(Post $post)
+    {
+        //Uso model bainging por eso aqui coloco el modelo y evito usar el FinOrFail
+        $categories = Category::all();
+        $users = User::all();
+        
         return view('posts.edit', compact('post','categories','users'));
     }
 
@@ -105,6 +120,19 @@ class PostController extends Controller
         $post->save();
         return "el post se actualizo";
         */
+
+
+        //VALIDACIONES
+        //1° forma validacion e el controller
+        $request->validate([
+            'title' => 'required',
+            'slug' => 'required',
+            'body' => 'required',
+            'category_id' => 'required',
+            'user_id' => 'required'
+         ]);
+         
+
 
         // 2° Forma (en caso tengo muchos campos que actualizar)
         //$post = Post::findOrFail($post); 

@@ -64,7 +64,7 @@ Route::delete('/posts/{post}' , [PostController::class , 'destroy'])->name('post
 */
 
 //METODO RESOURCE
-route::resource('posts', PostController::class);
+Route::resource('posts', PostController::class);
 
 //PARA DECIRLE CUAL DEBE SER EL NOMBRE DE MI RUTA ES DECIR LO QUE VA route('nombreruta.index') lo que cambiare es el nombreruta
 /*route::resource('articulos', PostController::class)->names('posts');*/
